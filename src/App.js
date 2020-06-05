@@ -1,26 +1,57 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React,{Component} from 'react';
+import Grid from "./Component/grid";
+import Solver from "./Component/solver";
+import SudukoBoard from "./Component/SudukoBoard";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+class App extends Component {
+  constructor(props) {
+    super(props);
+    
+    this.state = { puzzle: this.props.puzzle };
+  }
+
+  solve() {
+    const { puzzle } = this.state,
+      grid = new Grid(puzzle);
+      debugger
+      console.log("1");
+    new Solver(grid).solve();
+    console.log("3");
+    this.setState({ puzzle: grid.toFlatString() });
+  }
+
+  onCellValueEdited(row, col, value) {
+    const grid = new Grid(this.state.puzzle);
+
+    grid.rows[row][col].value = value;
+    // update the state with the new puzzle string
+    this.setState({ puzzle: grid.toFlatString() });
+  }
+
+  
+  clearAll() {
+    this.setState({ puzzle: this.props.puzzle });
+  }
+
+  render() {
+    console.log("vvvvvvvv ",this.state);
+    return (
+      <div className="game">
+        <h1 className="headerName">Sudoku Puzzle</h1>
+        <SudukoBoard
+
+           puzzle={this.state.puzzle}
+           onCellValueChange={this.onCellValueEdited.bind(this)}
+        />
+        <div className="buttons">
+          <button onClick={() => this.solve()}>Solve It!</button>
+          <button onClick={() => this.clearAll()}>Clear</button>
+        </div>
+      </div>
+    );
+  }
 }
+
 
 export default App;
