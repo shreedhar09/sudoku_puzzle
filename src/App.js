@@ -14,10 +14,8 @@ class App extends Component {
   solve() {
     const { puzzle } = this.state,
       grid = new Grid(puzzle);
-      debugger
-      console.log("1");
+     
     new Solver(grid).solve();
-    console.log("3");
     this.setState({ puzzle: grid.toFlatString() });
   }
 
@@ -35,7 +33,6 @@ class App extends Component {
   }
 
   render() {
-    console.log("vvvvvvvv ",this.state);
     return (
       <div className="game">
         <h1 className="headerName">Sudoku Puzzle</h1>

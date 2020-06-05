@@ -5,10 +5,8 @@ import Grid from "./grid";
 export default class SudukoBoard extends Component {
   
     render() {
-        debugger
-        console.log("qqqqqq ",this.props.puzzle);
+        
         const grid = new Grid(this.props.puzzle);
-    console.log("xxxxxx ",grid);
         return (
           <table className="sudoku">
             <tbody>

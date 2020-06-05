@@ -18,7 +18,7 @@ export default class Solver {
 
     solve() {
     
-        // work out what the set of possible values is for each unsolve cell.
+        // possible values is for each unsolve cell.
         this._initPossibleValues();
         // if there are any with only one possible value, set it.
         this._findCellsWithOnePossibleValue();
@@ -33,7 +33,7 @@ export default class Solver {
 
     _search() {
 
-        // pick the cell with least possible values (more chance of guessing correctly)
+        // pick the cell with least possible values 
         const cell = this.grid.unsolved().sort((x, y) => {
             const xVal = x.possibleValues.length * 100 + (x.row + x.col),
                 yVal = y.possibleValues.length * 100 + (y.row + y.col);
@@ -50,7 +50,6 @@ export default class Solver {
             try {
                 this._setValueForCell(cell, value);
                 if (!this.grid.isSolved()) {
-                    // no luck, keep looking...
                     this._search();
                 }
             } catch (inconsistency) {
@@ -90,26 +89,8 @@ export default class Solver {
             Initialise the possible values for the provided list of cells or
             all the unsolved cells in the grid if no list was provided.
 
-            To do this we collect the "peers" for each cell (cells not marked . for the cell c):
+            To do this we collect the "peers" for each cell 
 
-            x x x | . . . | . . .
-            5 c x | x x 2 | x 9 x
-            x x 3 | . . . | . . .
-            ------+-------+------
-            . x . | . . . | . . .
-            . x . | . . . | . . .
-            . x . | . . . | . . .
-            ------+-------+------
-            . x . | . . . | . . .
-            . 7 . | . . . | . . .
-            . x . | . . . | . . .
-
-            Remove from the peers any unsolved cells, then exclude from the list 1..9 any
-            numbers already present in the list of solved peers. e.g. in the above grid assuming
-            that any cell containing an x or a number is a peer of c and that the cells containing
-            the numbers are solved then the possible values for "c" are:
-
-            [1, 2, 3, 4, 5, 6, 7, 8, 9] - [5, 3, 2, 9, 7] = [8, 1, 4, 6]
         */
         (cells || this.grid.unsolved()).forEach(cell => {
             let peerValues = this.grid.peers(cell).map(valueOfCell),
@@ -121,7 +102,6 @@ export default class Solver {
     }
 
     _removeValueFromPeers(cell) {
-        // Summary:
         //  Remove the value of cell from the possible values of
         //  it's peers.
         this.grid
@@ -169,7 +149,6 @@ export default class Solver {
     }
 
     _findUniqueValuesInUnits(cell) {
-        console.log("2")
         if (cell) {
             [
                 this.grid.sameSubGridAs(cell).flatten(),
@@ -188,7 +167,6 @@ export default class Solver {
     }
 
     _findUniquePossibiltyInUnit(unit) {
-        console.log("4")
         let unsolved = unit.filter(isUnsolved);
         unsolved.forEach(unsolvedCell => {
             let unique,

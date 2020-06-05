@@ -95,31 +95,9 @@ export default class Grid {
     }
 
     sameSubGridAs(cell) {
-        /*
-            Get all the cells in the same "sub grid" as the given cell. e.g.
-            for the cell "c" below the cells in the "same_sub_grid" (which are
-            marked x below) are returned along with the argument cell.
+    
+          //  Get all the cells in the same "sub grid" as the given cell. 
 
-            x x x | . . . | . . .
-            x c x | . . . | . . .
-            x x x | . . . | . . .
-            ------+-------+------
-            . . . | . . . | . . .
-            . . . | . . . | . . .
-            . . . | . . . | . . .
-            ------+-------+------
-            . . . | . . . | . . .
-            . . . | . . . | . . .
-            . . . | . . . | . . .
-        */
-
-        // row:
-        // 0 - 2 -> 0
-        // 3 - 5 -> 3
-        // 6 - 8 -> 5
-
-        // col:
-        // same as above
         if (!cell.subgrid) {
             let index = function(x) {
                 if (x <= 2) {
